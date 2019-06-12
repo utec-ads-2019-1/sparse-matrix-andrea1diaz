@@ -15,9 +15,9 @@ void Tester::testMatrix(unsigned int rows, unsigned int columns) {
     Mocker mocker;
 
     T **matrix1 = buildMatrix<T>(rows, columns);
-    Matrix<T> test1 = setMatrix<T>(matrix1, rows, columns);
+    //Matrix<T> test1 = setMatrix<T>(matrix1, rows, columns);
 
-    unsigned int scalar = mocker.generateRandomInt(10);
+   /* unsigned int scalar = mocker.generateRandomInt(10);
     Matrix<T> result = test1 * scalar;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
@@ -39,7 +39,7 @@ void Tester::testMatrix(unsigned int rows, unsigned int columns) {
         for (int j = 0; j < columns; ++j) {
             ASSERT(result(i, j) == matrix1[i][j] - matrix2[i][j], "There is a problem with the subtraction");
         }
-    }
+    }*/
 }
 
 template <typename T>
@@ -53,7 +53,7 @@ T** Tester::buildMatrix(unsigned int rows, unsigned int columns) {
 
     return matrix;
 }
-
+/*
 template <typename T>
 Matrix<T> Tester::setMatrix(T **&matrix, unsigned int rows, unsigned int columns) {
     Matrix<T> result(rows, columns);
@@ -65,4 +65,4 @@ Matrix<T> Tester::setMatrix(T **&matrix, unsigned int rows, unsigned int columns
     }
 
     return result;
-}
+}*/
