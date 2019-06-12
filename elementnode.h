@@ -14,6 +14,8 @@ class ElementNode {
 	 	ElementNode<T>(){ value = 0; column = row = down = right = nullptr; }
 		ElementNode<T>(header *r, header *c, T data) { row = r; column = c; value = data; }
 
+		T getValue() { return value; }
+		void setValue(T val) { value = val; }
 		header* getColumn() { return column; }
 		void setColumn(header *col) { column = col; }
 

@@ -17,10 +17,10 @@ class HeaderNode {
 		T getIndex() { return index; }
 		void setIndex(T ind) { index = ind; } 
 
-		HeaderNode<T>* getNextHeader() { return next; }
+		HeaderNode<T>* getNext() { return next; }
 		void setNext(HeaderNode<T> *nuevo) { next = nuevo; }
 
-		element* getFirstElement() { return down; }
+		element* getElement() { return down; }
 		void setElement(element *nuevo) { down = nuevo; }
 
 

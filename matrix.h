@@ -15,14 +15,55 @@ private:
     unsigned rows, columns;
 
 public:
-    Matrix(unsigned rows, unsigned columns) {
-			HeaderNode<T>* row = new HeaderNode<T>(0);
-			HeaderNode<T>* column = new HeaderNode<T>(0);
+	
+		unsigned getRowNum() { return rows; }
+		void setRowNum(unsigned num) { rows = num; }
 
-			root->setHeaders(column, row);
-			
-			addHeaders(row, rows);
-			addHeaders(column, columns);
+		unsigned getColNum() { return columns; }
+		void setColNum(unsigned num) { columns = num; }
+
+
+		HeaderNode<T>* getRow(T index) {
+			HeaderNode<T> *tmp = root->getRow();
+
+			while (tmp != nullptr) {
+				if (tmp->getIndex() == index) return tmp;
+				tmp = tmp->getNext();
+			}
+
+			return nullptr;
+		}
+	
+
+		HeaderNode<T>* getCol(T index) {
+			HeaderNode<T> *tmp = root->getColumn();
+
+			while (tmp != nullptr) {
+				if (tmp->getIndex() == index) return tmp;
+				tmp = tmp->getNext();
+			}
+
+			return nullptr;
+		}
+
+
+		bool findElement(T r_index, T c_index, T e_value) {
+			HeaderNode<T> *row = getRow(r_index);
+			HeaderNode<T> *column = getCol(c_index);
+
+			if (row != nullptr && column != nullptr) {
+				ElementNode<T> *tmp = row->getElement();
+				
+				while (tmp != nullptr) {
+					if (tmp->getValue() == e_value && column->getIndex() == c_index )
+						return true;
+					tmp = tmp->getNext();
+				}
+				
+				return false;	
+			}
+
+			return false;
 		}
 
 
@@ -40,31 +81,28 @@ public:
 		}
 
 
+
+    Matrix(unsigned rows, unsigned columns) {
+			HeaderNode<T>* row = new HeaderNode<T>(0);
+			HeaderNode<T>* column = new HeaderNode<T>(0);
+
+			root->setHeaders(column, row);
+			
+			addHeaders(row, rows);
+			addHeaders(column, columns);
+		}
+
+
     void set(unsigned row, unsigned column, T value) {
 			ElementNode<T> *element = new ElementNode<T>(row, column, value);
 			HeaderNode<T> *nrow = root->getRow();
 			HeaderNode<T> *ncolumn = root->getColumn();
-
-			if (nrow->getElement() == nullptr) {
-				nrow->setElement(element);
-			}
-
-			else {
-				ElementNode<T> *relement = nrow->getElement();
-				
-				while ( relement->getRight() != nullptr ) {
-					relement = relement->getRight();
-				}
-
-				relement->setRight(element); 
-			}
-
-			if (ncolumn == nullptr) {
-				ncolumn->setElement(element);
-			}
-
-
 		}
+
+
+		void addElement(unsigned row, unsigned column, T value) {
+		}
+
 
     T operator()(unsigned, unsigned) const;
     Matrix<T> operator*(T scalar) const;
