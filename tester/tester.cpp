@@ -16,11 +16,11 @@ void Tester::testMatrix(unsigned int rows, unsigned int columns) {
 
 	  T **matrix1 = buildMatrix<T>(rows, columns);
     Matrix<T> test1 = setMatrix<T>(matrix1, rows, columns);
-
-    unsigned int scalar = mocker.generateRandomInt(10);
+	
+  /*  unsigned int scalar = mocker.generateRandomInt(10);
     Matrix<T> result = test1 * scalar;
-  /*  for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 2; j < columns; ++j) {
             ASSERT(result(i, j) == matrix1[i][j] * scalar, "There is a problem with the scalar multiplication");
         }
     }
@@ -50,16 +50,18 @@ T** Tester::buildMatrix(unsigned int rows, unsigned int columns) {
     for (int i = 0; i < rows; ++i) {
         matrix[i] = mocker.generateRandomArray<T>(columns);
     }
-
+		
     return matrix;
 }
 
 template <typename T>
 Matrix<T> Tester::setMatrix(T **&matrix, unsigned int rows, unsigned int columns) {
-    Matrix<T> result(rows, columns);
+	Matrix<T> result(rows, columns);
+	std::cout << "alo?\n";
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
-            result.set(i, j, matrix[i][j]);
+					std::cout << "here\n";
+           // result.set(i, j, matrix[i][j]);
             ASSERT(result(i, j) == matrix[i][j], "There is a problem with the set or operator()");
         }
     }
