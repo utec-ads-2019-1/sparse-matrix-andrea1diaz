@@ -14,18 +14,18 @@ template <typename T>
 void Tester::testMatrix(unsigned int rows, unsigned int columns) {
     Mocker mocker;
 
-    T **matrix1 = buildMatrix<T>(rows, columns);
+	  T **matrix1 = buildMatrix<T>(rows, columns);
     Matrix<T> test1 = setMatrix<T>(matrix1, rows, columns);
-
-    unsigned int scalar = mocker.generateRandomInt(10);
-    Matrix<T> result = test1 * scalar;
+	
+		/* unsigned int scalar = mocker.generateRandomInt(10);
+		 Matrix<T> result = test1 * scalar;
     for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
+        for (int j = 2; j < columns; ++j) {
             ASSERT(result(i, j) == matrix1[i][j] * scalar, "There is a problem with the scalar multiplication");
         }
     }
 
-    int **matrix2 = buildMatrix<T>(rows, columns);
+		int **matrix2 = buildMatrix<T>(rows, columns);
     Matrix<T> test2 = setMatrix<T>(matrix2, rows, columns);
     result = test1 + test2;
     for (int i = 0; i < rows; ++i) {
@@ -39,7 +39,7 @@ void Tester::testMatrix(unsigned int rows, unsigned int columns) {
         for (int j = 0; j < columns; ++j) {
             ASSERT(result(i, j) == matrix1[i][j] - matrix2[i][j], "There is a problem with the subtraction");
         }
-    }
+    }*/
 }
 
 template <typename T>
@@ -50,16 +50,19 @@ T** Tester::buildMatrix(unsigned int rows, unsigned int columns) {
     for (int i = 0; i < rows; ++i) {
         matrix[i] = mocker.generateRandomArray<T>(columns);
     }
-
+		
     return matrix;
 }
 
 template <typename T>
 Matrix<T> Tester::setMatrix(T **&matrix, unsigned int rows, unsigned int columns) {
-    Matrix<T> result(rows, columns);
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < columns; ++j) {
+	Matrix<T> result(rows, columns);
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 5; ++j) {
             result.set(i, j, matrix[i][j]);
+						std::cout << "test->" << matrix[i][j] << "\n";
+						std::cout << "j_->" << j << "\n";
+						std::cout << result(i,j) << "\n";
             ASSERT(result(i, j) == matrix[i][j], "There is a problem with the set or operator()");
         }
     }
