@@ -152,7 +152,7 @@ public:
 
 				while (r->getIndex() < row) r = r->getNext();
 				
-				if (r->getNext()->getElement() == nullptr) r->setElement(element);
+				if (r->getElement() == nullptr) r->setElement(element);
 
 				else {
 					element->setRight(r->getElement()->getRight());
@@ -161,7 +161,9 @@ public:
 
 				while (c->getIndex() < column) c = c->getNext();
 				
-				if (c->getElement() == nullptr) c->setElement(element);
+				if (c->getElement() == nullptr) {
+					c->setElement(element);
+				}
 
 				else {
 					element->setDown(c->getElement()->getDown());
