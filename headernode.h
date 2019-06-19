@@ -41,7 +41,8 @@ class HeaderNode {
     friend class Matrix<T>;
 
 		~HeaderNode() {
-			delete this;
+			delete next;
+			delete down;
 		}
 
 	protected:

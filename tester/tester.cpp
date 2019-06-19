@@ -59,8 +59,8 @@ Matrix<T> Tester::setMatrix(T **&matrix, unsigned int rows, unsigned int columns
 	Matrix<T> result(rows, columns);
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
+						std::cout << "matrix->" << matrix[i][j] << '\n';
             result.set(i, j, matrix[i][j]);
-						std::cout << "result->" << result(i, j) << ' ' << "matrix->" << matrix[i][j] << '\n';
             ASSERT(result(i, j) == matrix[i][j], "There is a problem with the set or operator()");
         }
     }

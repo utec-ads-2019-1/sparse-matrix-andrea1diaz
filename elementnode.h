@@ -40,10 +40,6 @@ class ElementNode {
     friend class Matrix<T>;
 		
 		~ElementNode() {
-			delete down;
-			delete right;
-			delete column;
-			delete row;
 		}
 
 	protected:
