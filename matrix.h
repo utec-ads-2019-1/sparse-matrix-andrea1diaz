@@ -78,12 +78,12 @@ public:
 			HeaderNode<T> *c = getCol(column);
 
 			if (r != nullptr && c != nullptr) {
-				ElementNode<T> *tmp = r->getElement();
+				ElementNode<T> *tmp = c->getElement();
 				
 				while (tmp != nullptr) {
 					if (tmp->getColumn()->getIndex() == column) return tmp;
 
-					tmp = tmp->getRight();
+					tmp = tmp->getDown();
 				}
 				
 				return nullptr;	
@@ -147,8 +147,11 @@ public:
 			else {
 				HeaderNode<T> *r = root->getRow();
 				HeaderNode<T> *c = root->getColumn();
+
+				HeaderNode<T> *col = getCol(column);
+				HeaderNode<T> *ro = getRow(row);
 	
-				ElementNode<T> *element = new ElementNode<T>(r, c, value);
+				ElementNode<T> *element = new ElementNode<T>(ro, col, value);
 
 				while (r->getIndex() < row) r = r->getNext();
 				
@@ -169,7 +172,7 @@ public:
 					element->setDown(c->getElement()->getDown());
 					c->getElement()->setDown(element);
 				}
-
+				
 				return true;
 			}	
 		}
