@@ -20,7 +20,7 @@ public:
 			HeaderNode<T>* row = new HeaderNode<T>(0);
 			HeaderNode<T>* column = new HeaderNode<T>(0);
 
-			root->setHeaders(column, row);
+			root->setHeaders(row, column);
 			
 			addHeaders(row, rows);
 			addHeaders(column, columns);
@@ -30,6 +30,7 @@ public:
 		}
 
 
+		Node<T>* getRoot() { return root; }
 
 		unsigned getRowNum() { return rows; }
 		void setRowNum(unsigned num) { rows = num; }
@@ -104,6 +105,16 @@ public:
 			}
 
 			return false;
+		}
+
+
+
+		T getElementValue(unsigned row, unsigned column) {
+			ElementNode<T>* element = getElementValue(row, column);
+
+			if (element) return element->getValue();
+
+			else return 0;
 		}
 
 
@@ -218,13 +229,122 @@ public:
 
 
 
-    Matrix<T> operator*(Matrix<T> other) const;
-    Matrix<T> operator+(Matrix<T> other) const;
-    Matrix<T> operator-(Matrix<T> other) const;
-    Matrix<T> transpose() const;
-    void print() const;
+    Matrix<T> operator*(Matrix<T> other) {
+			Matrix<T> *matrix = new Matrix<T>(getRowNum(), getColNum());
 
-    ~Matrix(){}
+			HeaderNode<T> *r = root->getRow();
+			ElementNode<T> *element = r->getElement();
+
+			while (r != nullptr) {
+				while (element != nullptr) {
+					T value1 = element->getValue();
+					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
+					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 * value2);		
+					element = element->getRight();
+				}
+
+				r = r->getNext();
+			}
+
+			return *matrix;
+
+		}
+
+
+
+    Matrix<T> operator+(Matrix<T> other) {
+			Matrix<T> *matrix = new Matrix<T>(getRowNum(), getColNum());
+
+			HeaderNode<T> *r = root->getRow();
+			ElementNode<T> *element = r->getElement();
+
+			while (r != nullptr) {
+				while (element != nullptr) {
+					T value1 = element->getValue();
+					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
+					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 + value2);		
+					element = element->getRight();
+				}
+
+				r = r->getNext();
+			}
+
+			return *matrix;
+		}
+
+
+
+    Matrix<T> operator-(Matrix<T> other){
+			Matrix<T> *matrix = new Matrix<T>(getRowNum(), getColNum());
+
+			HeaderNode<T> *r = root->getRow();
+			ElementNode<T> *element = r->getElement();
+
+			while (r != nullptr) {
+				while (element != nullptr) {
+					T value1 = element->getValue();
+					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
+					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 -  value2);		
+					element = element->getRight();
+				}
+
+				r = r->getNext();
+			}
+
+			return *matrix;
+		}
+
+
+
+    Matrix<T> transpose() {
+			Matrix<T> *matrix = new Matrix<T>(getColNum(), getRowNum());
+
+			HeaderNode<T> *r = root->getCol();
+			ElementNode<T> *element = r->getElement();
+
+			while (r != nullptr) {
+				while (element != nullptr) {
+					matrix->addElement(r->getIndex(), element->getRow()->getIndex(), element->getValue());
+					element = element->getDown();
+				}
+			
+				r = r->getNext();
+			}
+		}
+
+
+
+    void print() {
+			for (int i = 0; i < getRowNum(); i++) {
+				for (int j = 0; j < getColNum(); j++) {
+					std::cout << getElementValue(i, j) << " ";
+				}
+
+				std::cout << "\n";
+			}
+		}
+
+
+
+    ~Matrix() {
+			HeaderNode<T> *row = root->getRow();
+			HeaderNode<T> *aux_r;
+
+			ElementNode<T> *element = row->getElement();
+			ElementNode<T> *aux_e;
+
+			while (row->getNext() != nullptr) {
+				while (element != nullptr) {
+					aux_e = element->getRight();
+					element->~ElementNode();
+					aux_e = element;
+				}
+				
+				aux_r = row->getNext();
+				row->~HeaderNode();
+				row = aux_r;
+			}
+		}
 };
 
 #endif //SPARSE_MATRIX_MATRIX_H

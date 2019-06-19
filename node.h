@@ -9,12 +9,15 @@ class Matrix;
 template <typename T>
 class Node {
 protected:
-	HeaderNode<T> *fcolumn, *frow;
-
+	HeaderNode<T> *fcolumn;
+	HeaderNode<T>	*frow;
 public:
-    Node() {fcolumn = frow = nullptr; }
+    Node() { fcolumn = nullptr; }
 		
-		void setHeaders(HeaderNode<T> *row, HeaderNode<T> *column) { fcolumn = column; frow = row; }
+		void setHeaders(HeaderNode<T> *row, HeaderNode<T> *column) { 
+			std::cout << "frow->"<< row<<  "\n";
+			frow = new HeaderNode<T>(row);
+			fcolumn = column; }
 
 		HeaderNode<T>* getColumn() { return fcolumn; }
 		void setColumn(HeaderNode<T> *column) { fcolumn = column; }

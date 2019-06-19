@@ -32,6 +32,13 @@ class ElementNode {
 		void setRight(ElementNode<T> *rgt) { right = rgt; }
 
     friend class Matrix<T>;
+		
+		~ElementNode() {
+			delete down;
+			delete right;
+			delete column;
+			delete row;
+		}
 
 	protected:
 		T value;
