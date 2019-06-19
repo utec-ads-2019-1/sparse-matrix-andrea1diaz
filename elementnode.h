@@ -40,6 +40,15 @@ class ElementNode {
     friend class Matrix<T>;
 		
 		~ElementNode() {
+			ElementNode<T> *tmp = this;
+			ElementNode<T> *aux;
+
+			while (tmp != nullptr) {
+				aux = tmp->getRight();
+				delete tmp;
+				tmp = aux;
+			}
+
 		}
 
 	protected:

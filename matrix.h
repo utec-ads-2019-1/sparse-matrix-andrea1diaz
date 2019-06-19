@@ -190,7 +190,8 @@ public:
 				while (c->getIndex() < column) c = c->getNext();
 
 				c->getElement()->setDown(element->getDown());
-
+					
+				delete element;
 				return true;
 			}
 
