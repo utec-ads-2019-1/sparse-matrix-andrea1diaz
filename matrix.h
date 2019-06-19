@@ -78,12 +78,12 @@ public:
 			HeaderNode<T> *c = getCol(column);
 
 			if (r != nullptr && c != nullptr) {
-				ElementNode<T> *tmp = c->getElement();
+				ElementNode<T> *tmp = r->getElement();
 				
 				while (tmp != nullptr) {
 					if (tmp->getColumn()->getIndex() == column) return tmp;
 
-					tmp = tmp->getDown();
+					tmp = tmp->getRight();
 				}
 				
 				return nullptr;	
@@ -145,18 +145,15 @@ public:
 			if (findElement(row, column, value)) return false;
 
 			else {
-				HeaderNode<T> *r = root->getRow();
-				HeaderNode<T> *c = root->getColumn();
+				HeaderNode<T> *r = getRow(row);
+				HeaderNode<T> *c = getCol(column);
 
-				HeaderNode<T> *col = getCol(column);
-				HeaderNode<T> *ro = getRow(row);
-	
-				ElementNode<T> *element = new ElementNode<T>(ro, col, value);
+				ElementNode<T> *element = new ElementNode<T>(r, c, value);
 
 				while (r->getIndex() < row) r = r->getNext();
 				
 				if (r->getElement() == nullptr) r->setElement(element);
-
+				
 				else {
 					element->setRight(r->getElement()->getRight());
 					r->getElement()->setRight(element);
@@ -172,7 +169,7 @@ public:
 					element->setDown(c->getElement()->getDown());
 					c->getElement()->setDown(element);
 				}
-				
+			
 				return true;
 			}	
 		}
@@ -212,7 +209,6 @@ public:
 
     T operator()(unsigned row, unsigned column) {
 			ElementNode<T> *element = getElement(row, column);
-			
 			return element->getValue();
 		}
     
