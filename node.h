@@ -12,11 +12,10 @@ protected:
 	HeaderNode<T> *fcolumn;
 	HeaderNode<T>	*frow;
 public:
-    Node() { fcolumn = nullptr; }
+    Node() { fcolumn = nullptr; frow = nullptr; }
 		
 		void setHeaders(HeaderNode<T> *row, HeaderNode<T> *column) { 
-			std::cout << "frow->"<< row<<  "\n";
-			frow = new HeaderNode<T>(row);
+			frow = row;
 			fcolumn = column; }
 
 		HeaderNode<T>* getColumn() { return fcolumn; }

@@ -14,7 +14,13 @@ template <typename T>
 class ElementNode {
   public:
 	 	ElementNode<T>(){ value = 0; column = row = nullptr; down = right = nullptr; }
-		ElementNode<T>(HeaderNode<T> *r, HeaderNode<T> *c, T data) { row = r; column = c; value = data; }
+		ElementNode<T>(HeaderNode<T> *r, HeaderNode<T> *c, T data) {
+			down = nullptr;
+			right = nullptr;
+			row = r;
+			column = c;
+			value = data;
+		}
 
 		T getValue() { return value; }
 		void setValue(T val) { value = val; }
@@ -41,7 +47,7 @@ class ElementNode {
 		}
 
 	protected:
-		T value;
+		T value = 0;
 		HeaderNode<T> *column, *row;
 		ElementNode<T> *down, *right;
 };

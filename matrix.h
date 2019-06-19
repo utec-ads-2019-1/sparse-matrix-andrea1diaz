@@ -15,8 +15,15 @@ private:
     unsigned rows, columns;
 
 public:
-	
+		Matrix() {
+			root = new Node<T>;
+			rows = columns = 0;
+		}
+
+
+
     Matrix(unsigned rows, unsigned columns) {
+			root = new Node<T>;
 			HeaderNode<T>* row = new HeaderNode<T>(0);
 			HeaderNode<T>* column = new HeaderNode<T>(0);
 
@@ -110,7 +117,7 @@ public:
 
 
 		T getElementValue(unsigned row, unsigned column) {
-			ElementNode<T>* element = getElementValue(row, column);
+			ElementNode<T>* element = getElement(row, column);
 
 			if (element) return element->getValue();
 
@@ -138,14 +145,14 @@ public:
 			if (findElement(row, column, value)) return false;
 
 			else {
-				ElementNode<T> *element = new ElementNode<T>;
-
 				HeaderNode<T> *r = root->getRow();
 				HeaderNode<T> *c = root->getColumn();
+	
+				ElementNode<T> *element = new ElementNode<T>(r, c, value);
 
 				while (r->getIndex() < row) r = r->getNext();
 				
-				if (r->getElement() == nullptr) r->setElement(element);
+				if (r->getNext()->getElement() == nullptr) r->setElement(element);
 
 				else {
 					element->setRight(r->getElement()->getRight());
@@ -160,8 +167,6 @@ public:
 					element->setDown(c->getElement()->getDown());
 					c->getElement()->setDown(element);
 				}
-
-				element->setValue(value);
 
 				return true;
 			}	
