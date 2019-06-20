@@ -4,8 +4,8 @@ void Tester::execute() {
     Mocker mocker;
 
     for (int i = 0; i < NUMBER_OF_TESTS; ++i) {
-        unsigned int rows = 5; //mocker.generateRandomInt(10);
-        unsigned int columns = 5; //mocker.generateRandomInt(10);
+        unsigned int rows = 3; //mocker.generateRandomInt(10);
+        unsigned int columns = 3; //mocker.generateRandomInt(10);
         testMatrix<int>(rows, columns);
     }
 }
@@ -59,7 +59,6 @@ Matrix<T> Tester::setMatrix(T **&matrix, unsigned int rows, unsigned int columns
 	Matrix<T> result(rows, columns);
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
-						std::cout << "matrix->" << matrix[i][j] << '\n';
             result.set(i, j, matrix[i][j]);
             ASSERT(result(i, j) == matrix[i][j], "There is a problem with the set or operator()");
         }

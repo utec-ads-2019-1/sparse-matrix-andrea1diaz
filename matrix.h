@@ -28,7 +28,7 @@ public:
 			HeaderNode<T>* column = new HeaderNode<T>(0);
 
 			root->setHeaders(row, column);
-
+			
 			addHeaders(row, rows);
 			addHeaders(column, columns);
 
@@ -57,7 +57,7 @@ public:
 
 			return nullptr;
 		}
-
+	
 
 
 		HeaderNode<T>* getCol(T index) {
@@ -79,14 +79,14 @@ public:
 
 			if (r != nullptr && c != nullptr) {
 				ElementNode<T> *tmp = r->getElement();
-
+				
 				while (tmp != nullptr) {
 					if (tmp->getColumn()->getIndex() == column) return tmp;
 
 					tmp = tmp->getRight();
 				}
-
-				return nullptr;
+				
+				return nullptr;	
 			}
 
 			return nullptr;
@@ -101,14 +101,14 @@ public:
 
 			if (row != nullptr && column != nullptr) {
 				ElementNode<T> *tmp = row->getElement();
-
+				
 				while (tmp != nullptr) {
-					if (tmp->getValue() == e_value && column->getIndex() == c_index )
+					if (tmp->getValue() == e_value && tmp->getColumn()->getIndex() == c_index )
 						return true;
 					tmp = tmp->getRight();
 				}
-
-				return false;
+				
+				return false;	
 			}
 
 			return false;
@@ -151,16 +151,16 @@ public:
 				ElementNode<T> *element = new ElementNode<T>(r, c, value);
 
 				while (r->getIndex() < row) r = r->getNext();
-
+				
 				if (r->getElement() == nullptr) r->setElement(element);
-
+				
 				else {
 					element->setRight(r->getElement()->getRight());
 					r->getElement()->setRight(element);
 				}
 
 				while (c->getIndex() < column) c = c->getNext();
-
+				
 				if (c->getElement() == nullptr) {
 					c->setElement(element);
 				}
@@ -169,9 +169,9 @@ public:
 					element->setDown(c->getElement()->getDown());
 					c->getElement()->setDown(element);
 				}
-
+			
 				return true;
-			}
+			}	
 		}
 
 
@@ -184,13 +184,13 @@ public:
 				ElementNode<T> *element = getElement(row, column);
 
 				while (r->getIndex() < row) r = r->getNext();
-
+				
 				r->getElement()->setRight(element->getRight());
 
 				while (c->getIndex() < column) c = c->getNext();
 
 				c->getElement()->setDown(element->getDown());
-
+					
 				delete element;
 				return true;
 			}
@@ -211,7 +211,7 @@ public:
     T operator()(unsigned row, unsigned column) {
 			return getElementValue(row, column);
 		}
-
+    
 
 
 		Matrix<T> operator*(T scalar) {
@@ -219,11 +219,11 @@ public:
 
 			HeaderNode<T> *r = root->getRow();
 			ElementNode<T> *element = r->getElement();
-
+		
 			while (r != nullptr) {
 				while (element != nullptr) {
 					T value = element->getValue();
-					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value * scalar);
+					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value * scalar);		
 					element = element->getRight();
 				}
 
@@ -231,7 +231,7 @@ public:
 			}
 
 			return *matrix;
-		}
+		}	
 
 
 
@@ -244,8 +244,8 @@ public:
 			while (r != nullptr) {
 				while (element != nullptr) {
 					T value1 = element->getValue();
-					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex());
-					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 * value2);
+					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
+					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 * value2);		
 					element = element->getRight();
 				}
 
@@ -267,8 +267,8 @@ public:
 			while (r != nullptr) {
 				while (element != nullptr) {
 					T value1 = element->getValue();
-					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex());
-					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 + value2);
+					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
+					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 + value2);		
 					element = element->getRight();
 				}
 
@@ -289,8 +289,8 @@ public:
 			while (r != nullptr) {
 				while (element != nullptr) {
 					T value1 = element->getValue();
-					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex());
-					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 -  value2);
+					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
+					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value1 -  value2);		
 					element = element->getRight();
 				}
 
@@ -313,7 +313,7 @@ public:
 					matrix->addElement(r->getIndex(), element->getRow()->getIndex(), element->getValue());
 					element = element->getDown();
 				}
-
+			
 				r = r->getNext();
 			}
 		}
@@ -333,7 +333,7 @@ public:
 
 
     ~Matrix() {
-			HeaderNode<T> *row = root->getRow();
+	/*		HeaderNode<T> *row = root->getRow();
 			HeaderNode<T> *aux_r;
 
 			ElementNode<T> *element = row->getElement();
@@ -345,11 +345,11 @@ public:
 					element->~ElementNode();
 					aux_e = element;
 				}
-
+				
 				aux_r = row->getNext();
 				row->~HeaderNode();
 				row = aux_r;
-			}
+			}*/
 		}
 };
 
