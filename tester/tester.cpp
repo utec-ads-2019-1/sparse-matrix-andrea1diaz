@@ -4,8 +4,8 @@ void Tester::execute() {
     Mocker mocker;
 
     for (int i = 0; i < NUMBER_OF_TESTS; ++i) {
-        unsigned int rows = 3; //mocker.generateRandomInt(10);
-        unsigned int columns = 3; //mocker.generateRandomInt(10);
+        unsigned int rows = 5; //mocker.generateRandomInt(10);
+        unsigned int columns = 5; //mocker.generateRandomInt(10);
         testMatrix<int>(rows, columns);
     }
 }
@@ -17,15 +17,15 @@ void Tester::testMatrix(unsigned int rows, unsigned int columns) {
 	  T **matrix1 = buildMatrix<T>(rows, columns);
     Matrix<T> test1 = setMatrix<T>(matrix1, rows, columns);
 	
-		/* unsigned int scalar = mocker.generateRandomInt(10);
+		unsigned int scalar = mocker.generateRandomInt(10);
 		 Matrix<T> result = test1 * scalar;
     for (int i = 0; i < rows; ++i) {
-        for (int j = 2; j < columns; ++j) {
+        for (int j = 0; j < columns; ++j) {
             ASSERT(result(i, j) == matrix1[i][j] * scalar, "There is a problem with the scalar multiplication");
         }
     }
 
-		int **matrix2 = buildMatrix<T>(rows, columns);
+		/*int **matrix2 = buildMatrix<T>(rows, columns);
     Matrix<T> test2 = setMatrix<T>(matrix2, rows, columns);
     result = test1 + test2;
     for (int i = 0; i < rows; ++i) {

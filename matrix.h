@@ -218,12 +218,12 @@ public:
 			Matrix<T> *matrix = new Matrix<T>(getRowNum(), getColNum());
 
 			HeaderNode<T> *r = root->getRow();
-			ElementNode<T> *element = r->getElement();
 		
 			while (r != nullptr) {
+				ElementNode<T> *element = r->getElement();
 				while (element != nullptr) {
-					T value = element->getValue();
-					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value * scalar);		
+					T value = element->getValue() * scalar;
+					matrix->set(r->getIndex(), element->getColumn()->getIndex(), value);		
 					element = element->getRight();
 				}
 
@@ -239,9 +239,9 @@ public:
 			Matrix<T> *matrix = new Matrix<T>(getRowNum(), getColNum());
 
 			HeaderNode<T> *r = root->getRow();
-			ElementNode<T> *element = r->getElement();
 
 			while (r != nullptr) {
+				ElementNode<T> *element = r->getElement();
 				while (element != nullptr) {
 					T value1 = element->getValue();
 					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
@@ -262,9 +262,10 @@ public:
 			Matrix<T> *matrix = new Matrix<T>(getRowNum(), getColNum());
 
 			HeaderNode<T> *r = root->getRow();
-			ElementNode<T> *element = r->getElement();
 
-			while (r != nullptr) {
+			while (r != nullptr) {	
+				ElementNode<T> *element = r->getElement();
+
 				while (element != nullptr) {
 					T value1 = element->getValue();
 					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
@@ -284,9 +285,10 @@ public:
 			Matrix<T> *matrix = new Matrix<T>(getRowNum(), getColNum());
 
 			HeaderNode<T> *r = root->getRow();
-			ElementNode<T> *element = r->getElement();
 
 			while (r != nullptr) {
+				ElementNode<T> *element = r->getElement();
+
 				while (element != nullptr) {
 					T value1 = element->getValue();
 					T value2 = other.getElementValue(element->getRow()->getIndex(), element->getColumn()->getIndex()); 
@@ -306,9 +308,10 @@ public:
 			Matrix<T> *matrix = new Matrix<T>(getColNum(), getRowNum());
 
 			HeaderNode<T> *r = root->getCol();
-			ElementNode<T> *element = r->getElement();
 
 			while (r != nullptr) {
+				ElementNode<T> *element = r->getElement();
+
 				while (element != nullptr) {
 					matrix->addElement(r->getIndex(), element->getRow()->getIndex(), element->getValue());
 					element = element->getDown();
