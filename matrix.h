@@ -201,9 +201,9 @@ public:
 
 
     void set(unsigned row, unsigned column, T value) {
-			if (value == 0) deleteElement(row, column, value);
+			/*if (value == 0) deleteElement(row, column, value);
 
-			else addElement(row, column, value);
+			else*/ addElement(row, column, value);
 		}
 
 
@@ -223,7 +223,7 @@ public:
 				ElementNode<T> *element = r->getElement();
 				while (element != nullptr) {
 					T value = element->getValue() * scalar;
-					matrix->set(r->getIndex(), element->getColumn()->getIndex(), value);		
+					matrix->addElement(r->getIndex(), element->getColumn()->getIndex(), value);		
 					element = element->getRight();
 				}
 
