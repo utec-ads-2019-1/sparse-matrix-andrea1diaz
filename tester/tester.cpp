@@ -4,8 +4,8 @@ void Tester::execute() {
     Mocker mocker;
 
     for (int i = 0; i < NUMBER_OF_TESTS; ++i) {
-        unsigned int rows = 5; //mocker.generateRandomInt(10);
-        unsigned int columns = 5; //mocker.generateRandomInt(10);
+        unsigned int rows = mocker.generateRandomInt(10);
+        unsigned int columns = mocker.generateRandomInt(10);
         testMatrix<int>(rows, columns);
     }
 }
@@ -40,6 +40,8 @@ void Tester::testMatrix(unsigned int rows, unsigned int columns) {
             ASSERT(result(i, j) == matrix1[i][j] - matrix2[i][j], "There is a problem with the subtraction");
         }
     }
+
+    cout << "Finished" << endl;
 }
 
 template <typename T>

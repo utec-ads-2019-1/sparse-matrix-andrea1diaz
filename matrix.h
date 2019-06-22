@@ -201,6 +201,7 @@ public:
 
 
     void set(unsigned row, unsigned column, T value) {
+		// Qué pasó? Ya no borras elemento si es 0? 
 			/*if (value == 0) deleteElement(row, column, value);
 
 			else*/ addElement(row, column, value);
